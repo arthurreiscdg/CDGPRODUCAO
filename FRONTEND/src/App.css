@@ -1,0 +1,12 @@
+/* Estilos globais da aplicação */
+#root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Tema claro por padrão */
+body {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
