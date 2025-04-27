@@ -1,42 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import LoginModal from './LoginModal';
 
 export default function Home() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = (route) => {
+    setIsLoginModalOpen(false);
+    navigate(route);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Sistema de Formulários PDF</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Link 
-          to="/formulario/zerohum" 
-          className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-        >
-          <h2 className="text-xl font-semibold mb-2">Formulário Zero Um</h2>
-          <p className="text-gray-600">Gerenciar formulários e arquivos PDF para Zero Um</p>
-        </Link>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-md w-full mx-auto p-8">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Casa da Gráfica</h1>
+          <p className="text-lg text-gray-600">Sistema de Gestão de Formulários PDF</p>
+        </div>
 
-        <Link 
-          to="/formulario/pensi" 
-          className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        <button
+          onClick={() => setIsLoginModalOpen(true)}
+          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition-colors text-lg"
         >
-          <h2 className="text-xl font-semibold mb-2">Formulário Pensi</h2>
-          <p className="text-gray-600">Gerenciar formulários e arquivos PDF para Pensi</p>
-        </Link>
+          Fazer Login
+        </button>
 
-        <Link 
-          to="/formulario/elite" 
-          className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-        >
-          <h2 className="text-xl font-semibold mb-2">Formulário Elite</h2>
-          <p className="text-gray-600">Gerenciar formulários e arquivos PDF para Elite</p>
-        </Link>
-
-        <Link 
-          to="/formulario/coleguium" 
-          className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-        >
-          <h2 className="text-xl font-semibold mb-2">Formulário Coleguium</h2>
-          <p className="text-gray-600">Gerenciar formulários e arquivos PDF para Coleguium</p>
-        </Link>
+        <LoginModal 
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+          onLogin={handleLogin}
+        />
       </div>
     </div>
   );

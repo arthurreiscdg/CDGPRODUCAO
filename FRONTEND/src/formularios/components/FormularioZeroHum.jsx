@@ -68,12 +68,20 @@ export default function FormularioZeroHum() {
       if (formData.arquivo_excel) {
         formDataToSend.append('excel_file', formData.arquivo_excel);
       }
-      // Adicionar os outros campos
-      Object.keys(formData).forEach(key => {
-        if (key !== 'arquivos_pdf' && key !== 'arquivo_excel') {
-          formDataToSend.append(key, formData[key]);
-        }
-      });
+      // Adicionar os outros campos com os valores formatados corretamente
+      formDataToSend.append('nome', formData.nome);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('titulo', formData.titulo);
+      formDataToSend.append('data_entrega', formData.data_entrega);
+      formDataToSend.append('observacoes', formData.observacoes || '');
+      formDataToSend.append('formato', formData.formato.toUpperCase());
+      formDataToSend.append('cor_impressao', formData.cor_impressao);
+      formDataToSend.append('impressao', formData.impressao);
+      formDataToSend.append('gramatura', formData.gramatura);
+      // Só envia grampos se tiver um valor válido
+      if (formData.grampos && formData.grampos !== 'nenhum') {
+        formDataToSend.append('grampos', formData.grampos);
+      }
 
       const response = await enviarFormularioZeroHum(formDataToSend);
       console.log('Formulário enviado com sucesso:', response);
@@ -95,6 +103,7 @@ export default function FormularioZeroHum() {
       });
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
+      alert('Erro ao enviar formulário: ' + error.message);
     }
   };
 
